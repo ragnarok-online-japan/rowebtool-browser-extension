@@ -1,0 +1,64 @@
+{
+    "name": "rodb_character_info_export",
+    "private": true,
+    "version": "0.0.1",
+    "description": "",
+    "scripts": {
+        "start": "npm run dev:edge",
+        "build": "npm run build:edge --production",
+        "build:chrome": "gulp pack --production --vendor=chrome --production",
+        "build:firefox": "gulp pack --production --vendor=firefox --production",
+        "build:opera": "gulp pack --production --vendor=opera --production",
+        "build:edge": "gulp pack --production --vendor=edge --production",
+        "dev": "npm run dev:edge",
+        "dev:chrome": "gulp --watch --vendor=chrome",
+        "dev:firefox": "gulp --watch --vendor=firefox",
+        "dev:opera": "gulp --watch --vendor=opera",
+        "dev:edge": "gulp --watch --vendor=edge",
+        "lint": "standard"
+    },
+    "standard": {
+        "globals": [
+            "edge"
+        ],
+        "parser": "babel-eslint"
+    },
+    "devDependencies": {
+        "@types/cheerio": "^0.22.35",
+        "@types/chrome": "*",
+        "babel-cli": "*",
+        "babel-core": "*",
+        "babel-eslint": "*",
+        "babel-loader": "*",
+        "babel-preset-env": "*",
+        "babili-webpack-plugin": "*",
+        "del": "6.1.1",
+        "gulp": "*",
+        "gulp-bump": "*",
+        "gulp-cache": "*",
+        "gulp-clean-css": "*",
+        "gulp-filter": "*",
+        "gulp-git": "*",
+        "gulp-if": "*",
+        "gulp-json-transform": "*",
+        "gulp-livereload": "*",
+        "gulp-plumber": "*",
+        "gulp-sourcemaps": "*",
+        "gulp-tag-version": "*",
+        "gulp-util": "*",
+        "gulp-watch": "*",
+        "gulp-zip": "5.1.0",
+        "require-dir": "*",
+        "standard": "*",
+        "ts-loader": "*",
+        "tslint": "*",
+        "typescript": "^5.3.2",
+        "vinyl-named": "*",
+        "webpack": "*",
+        "webpack-stream": "*",
+        "yargs": "*"
+    },
+    "dependencies": {
+        "cheerio": "^1.0.0-rc.12"
+    }
+}

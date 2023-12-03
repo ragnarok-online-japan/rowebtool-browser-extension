@@ -1,0 +1,18 @@
+{
+    "appName": {
+        "message": "RODB:ラグナロクオンライン キャラクター情報エクスポート",
+        "description": ""
+    },
+    "appShortName": {
+        "message": "rocharinfexp",
+        "description": ""
+    },
+    "appDescription": {
+        "message": "https://rowebtool.gungho.jp/ の情報をエクスポートする為のブラウザ拡張",
+        "description": ""
+    },
+    "browserActionTitle": {
+        "message": "RODB:ラグナロクオンライン キャラクター情報エクスポート",
+        "description": ""
+    }
+}

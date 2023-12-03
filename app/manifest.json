@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "__MSG_appName__",
+    "short_name": "__MSG_appShortName__",
+    "description": "__MSG_appDescription__",
+    "version": "0.0.1",
+    "author": "m10i@0nyx.net",
+    "homepage_url": "https://rodb.aws.0nyx.net/",
+    "default_locale": "ja",
+    "icons": {
+        "16": "images/RODB_16x16.png",
+        "48": "images/RODB_48x48.png",
+        "128": "images/RODB_128x128.png"
+    },
+    "host_permissions": [
+        "https://rowebtool.gungho.jp/"
+    ],
+    "action": {
+        "default_icon": "images/RODB_128x128.png"
+    },
+    "minimum_chrome_version": "120",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://rowebtool.gungho.jp/character/*"
+            ],
+            "js": [
+                "scripts/export_json.js"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}
