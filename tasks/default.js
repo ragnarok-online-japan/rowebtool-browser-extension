@@ -1,7 +1,13 @@
 import gulp from 'gulp'
 
+gulp.task('default',
+    gulp.series(
+        'build'
+    )
+);
+
 gulp.task('watch', () => {
-    return gulp.watch(
+    gulp.watch(
         [
             'app/manifest.json',
             'app/scripts/*.ts',
@@ -11,10 +17,3 @@ gulp.task('watch', () => {
         gulp.task('build')
     )
 });
-
-gulp.task('default',
-    gulp.series(
-        'build',
-        'watch'
-    )
-);

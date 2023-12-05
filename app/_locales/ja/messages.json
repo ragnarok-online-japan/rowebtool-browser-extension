@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "RODB:ラグナロクオンライン キャラクター情報エクスポート",
+        "message": "RODB:ラグナロクオンライン Web tool キャラクター情報エクスポート",
         "description": ""
     },
     "appShortName": {
@@ -12,7 +12,7 @@
         "description": ""
     },
     "browserActionTitle": {
-        "message": "RODB:ラグナロクオンライン キャラクター情報エクスポート",
+        "message": "RODB:ラグナロクオンライン Web tool キャラクター情報エクスポート",
         "description": ""
     }
 }

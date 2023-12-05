@@ -1,7 +1,7 @@
 {
-    "name": "rodb_character_info_export",
+    "name": "rowebtool_browser_extension",
     "private": true,
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "",
     "scripts": {
         "start": "npm run dev:edge",
@@ -11,10 +11,10 @@
         "build:opera": "gulp pack --production --vendor=opera --production",
         "build:edge": "gulp pack --production --vendor=edge --production",
         "dev": "npm run dev:edge",
-        "dev:chrome": "gulp --watch --vendor=chrome",
-        "dev:firefox": "gulp --watch --vendor=firefox",
-        "dev:opera": "gulp --watch --vendor=opera",
-        "dev:edge": "gulp --watch --vendor=edge",
+        "dev:chrome": "gulp watch --vendor=chrome",
+        "dev:firefox": "gulp watch --vendor=firefox",
+        "dev:opera": "gulp watch --vendor=opera",
+        "dev:edge": "gulp watch --vendor=edge",
         "lint": "standard"
     },
     "standard": {

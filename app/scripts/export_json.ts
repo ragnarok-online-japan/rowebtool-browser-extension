@@ -32,9 +32,9 @@ const main = async () => {
         character_data["status"]["base_lv"] = Number(html("section > div.status > table > tbody > tr:nth-child(1) > td:nth-child(2)").text())
         // JobLv
         character_data["status"]["job_lv"] = Number(html("section > div.status > table > tbody > tr:nth-child(2) > td:nth-child(2)").text())
-        // MaxHP
+        // MaxHP(hp_max)
         character_data["status"]["hp_max"] = Number(html("section > div.status > table > tbody > tr:nth-child(3) > td:nth-child(2)").text())
-        // MaxSP
+        // MaxSP(sp_max)
         character_data["status"]["sp_max"] = Number(html("section > div.status > table > tbody > tr:nth-child(4) > td:nth-child(2)").text())
 
         const regex_status_point = /^\s*([0-9]+)\s*/
