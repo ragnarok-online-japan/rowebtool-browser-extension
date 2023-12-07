@@ -146,6 +146,26 @@ const main = async () => {
 `
     document.getElementsByTagName("article").item(0)?.appendChild(element_section)
 
+    const button_json_translator = document.getElementById('button_json_translator')
+    button_json_translator?.addEventListener('click', event => {
+        event.preventDefault();
+
+        fetch('https://rodb.aws.0nyx.net/json-translator', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: string_json
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.success == true) {
+                    console.log("success")
+                }
+            })
+            .catch(error => console.log(error))
+    })
+
     const button_redirect_rodb_simulator = document.getElementById('button_redirect_rodb_simulator')
     button_redirect_rodb_simulator?.addEventListener('click', event => {
         event.preventDefault();
