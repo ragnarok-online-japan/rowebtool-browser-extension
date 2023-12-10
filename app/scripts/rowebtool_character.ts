@@ -7,14 +7,14 @@ let character_data: { [name: string]: any } = {
         "base_lv": 1,
         "job_lv": 1,
         "hp_max": 1,
-        "sp_max": 1,
-        "job_class_localization": ""
+        "sp_max": 1
     },
     "skills": {
         "localization": {}
     },
     "additional_info": {
-        "character_name": ""
+        "character_name": "",
+        "world_name": ""
     }
 }
 
@@ -30,18 +30,18 @@ const main = async () => {
 
     if (html("section > div.status > table > caption").text() == "ステータス") {
         // BaseLv
-        character_data["status"]["base_lv"] = Number(html("section > div.status > table > tbody > tr:nth-child(1) > td:nth-child(2)").text())
+        character_data["status"]["base_lv"] = Number(html("section > div.status > table > tbody > tr:nth-child(1) > td:nth-child(2)").text().trim())
         // JobLv
-        character_data["status"]["job_lv"] = Number(html("section > div.status > table > tbody > tr:nth-child(2) > td:nth-child(2)").text())
+        character_data["status"]["job_lv"] = Number(html("section > div.status > table > tbody > tr:nth-child(2) > td:nth-child(2)").text().trim())
         // MaxHP(hp_max)
-        character_data["status"]["hp_max"] = Number(html("section > div.status > table > tbody > tr:nth-child(3) > td:nth-child(2)").text())
+        character_data["status"]["hp_max"] = Number(html("section > div.status > table > tbody > tr:nth-child(3) > td:nth-child(2)").text().trim())
         // MaxSP(sp_max)
-        character_data["status"]["sp_max"] = Number(html("section > div.status > table > tbody > tr:nth-child(4) > td:nth-child(2)").text())
+        character_data["status"]["sp_max"] = Number(html("section > div.status > table > tbody > tr:nth-child(4) > td:nth-child(2)").text().trim())
 
         const regex_status_point = /^\s*([0-9]+)\s*/
         for (let idx = 1; idx <= 12; idx++) {
             let key: string = html("section > div.status > table > tbody > tr:nth-child(" + String(idx) + ") > th:nth-child(3)").text().toLocaleLowerCase()
-            let value: string = html("section > div.status > table > tbody > tr:nth-child(" + String(idx) + ") > td:nth-child(4)").text()
+            let value: string = html("section > div.status > table > tbody > tr:nth-child(" + String(idx) + ") > td:nth-child(4)").text().trim()
             let matches = value.match(regex_status_point)
 
             if (matches != null) {
@@ -325,11 +325,12 @@ const main = async () => {
 </style>
 <div id="rodb_character_information_export">
 <h1>RODB:ラグナロクオンライン Webブラウザ拡張</h1>
-<button id="button_json_translator" class="btn btn-primary btn-lg">JSON Translatorにて変換</button>
-<button id="button_forward_to_rodb_simulator" class="btn btn-success btn-lg" disabled="disabled">RODB Simulatorへ転送</button>
+
+<button id="button_translator" class="btn btn-primary btn-lg">RODB Translator で変換</button>
+<button id="button_forward_to_rodb_simulator" class="btn btn-light btn-lg" disabled="disabled">RODB Simulator へ転送 (新ウィンドウで開きます)</button>
 
 <br/>
-<p>JSONデータ</p>
+<p>JSONデータ(読取専用、編集不可)</p>
 <textarea id="textarea_json" rows="10" style="width: 100%;" readonly>` + json_string + `</textarea>
 <br/>
 <h4>Created by <a href="https://rodb.aws.0nyx.net">RODB - 0nyx.net</a></h4>
@@ -338,10 +339,10 @@ const main = async () => {
     document.getElementsByTagName("article").item(0)?.appendChild(element_section)
 
     const textarea_json = document.getElementById('textarea_json')
-    const button_json_translator = document.getElementById('button_json_translator')
+    const button_translator = document.getElementById('button_translator')
     const button_forward_to_rodb_simulator = document.getElementById('button_forward_to_rodb_simulator')
 
-    button_json_translator?.addEventListener('click', event => {
+    button_translator?.addEventListener('click', event => {
         event.preventDefault();
 
         fetch('https://rodb.aws.0nyx.net/translator', {
@@ -354,8 +355,10 @@ const main = async () => {
             .then((response) => response.json())
             .then((result) => {
                 if (result.success == true && textarea_json) {
+                    button_translator?.setAttribute("disabled", "disabled")
                     json_string = result.translated_data
                     textarea_json.innerHTML = json_string
+                    button_forward_to_rodb_simulator?.classList.replace("btn-light", "btn-success")
                     button_forward_to_rodb_simulator?.removeAttribute("disabled")
                 }
             })
@@ -386,6 +389,7 @@ const main = async () => {
             })
             .catch((error) => {
                 console.log(error)
+                button_forward_to_rodb_simulator?.setAttribute("disabled", "disabled")
                 if (textarea_json) {
                     textarea_json.innerText = '{"error":"' + error + '"}'
                 }
