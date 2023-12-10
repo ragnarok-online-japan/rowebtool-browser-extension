@@ -23,7 +23,7 @@
     "content_scripts": [
         {
             "matches": [
-                "https://rotool.gungho.jp/item/*/*"
+                "https://rotool.gungho.jp/item/*"
             ],
             "js": [
                 "scripts/rotool_item.js"

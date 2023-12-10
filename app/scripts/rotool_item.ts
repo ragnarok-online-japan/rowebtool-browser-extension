@@ -4,6 +4,9 @@ const main = async () => {
     const html = load(document.body.innerHTML)
     const item_name = html("body > main > article > h1").text().trim()
 
+    if (item_name == "アイテム検索")
+        return
+
     fetch('https://rodb.aws.0nyx.net/bokehro-check?name=' + encodeURI(item_name), {
         method: 'GET',
         headers: {
@@ -29,10 +32,12 @@ const element_injection = (item_name: string, item_id: number, export_img_url: s
 div.center {
     text-align: center;
 }
-img.loading {
-   background-image: url("https://rodb.aws.0nyx.net/assets/img/loading_fidget-spinner.gif");
-   background-repeat: no-repeat;
-   background-position: center center;
+img.bokehro {
+    min-width: 64px;
+    min-height: 64px;
+    background-image: url("https://rodb.aws.0nyx.net/assets/img/loading_fidget-spinner.gif");
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 hr.line {
     margin-top: 0.5em;
@@ -45,7 +50,7 @@ hr.line {
 
 <div class="center">
 <a href="https://rodb.aws.0nyx.net/bokehro?name=`+ item_name_eocodeed + `#plot" target="_blank">
-<img src="`+ export_img_url + `" alt="RODB: Bokeh RO png image" class="loading" /><br/>
+<img src="`+ export_img_url + `" alt="RODB: Bokeh RO png image" class="bokehro" /><br/>
 RODB - Bokeh RO : `+ item_name + ` を開く</a><br/>
 </div>
 
