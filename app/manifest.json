@@ -3,7 +3,7 @@
     "name": "__MSG_appName__",
     "short_name": "__MSG_appShortName__",
     "description": "__MSG_appDescription__",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "author": "m10i@0nyx.net",
     "homepage_url": "https://rodb.aws.0nyx.net/",
     "default_locale": "ja",
@@ -13,8 +13,7 @@
         "128": "images/RODB_128x128.png"
     },
     "host_permissions": [
-        "https://rotool.gungho.jp/*",
-        "https://rowebtool.gungho.jp/*"
+        "https://rotool.gungho.jp/*"
     ],
     "action": {
         "default_icon": "images/RODB_128x128.png"
@@ -27,14 +26,6 @@
             ],
             "js": [
                 "scripts/rotool_item.js"
-            ]
-        },
-        {
-            "matches": [
-                "https://rowebtool.gungho.jp/character/*"
-            ],
-            "js": [
-                "scripts/rowebtool_character.js"
             ]
         }
     ]
