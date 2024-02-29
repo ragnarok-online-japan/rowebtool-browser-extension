@@ -16,17 +16,19 @@ const main = async () => {
         .then((response) => response.json())
         .then((result) => {
             if (result.success == true) {
-                element_injection(item_id, result.data.item_name, result.export_img_url)
+                element_injection(item_id, result.data, result.export_img_url)
             }
         })
         .catch(error => console.log(error))
 }
 
-const element_injection = (item_id: number, item_name: string, export_img_url: string) => {
+const element_injection = (item_id: number, data: any, export_img_url: string) => {
+    const item_name: string = data.item_name
     const item_name_encodeed: string = encodeURI(item_name)
     const element_section = document.createElement("section")
     element_section.setAttribute("class", "content-wrap transction-wrap")
-    element_section.innerHTML = `
+
+    let inner_html = `
 <div>
 <style>
 div.center {
@@ -34,7 +36,7 @@ div.center {
 }
 img.bokehro {
     min-width: 64px;
-    min-height: 64px;
+    min-height: 488px;
     background-image: url("https://rodb.aws.0nyx.net/assets/img/loading_fidget-spinner.gif");
     background-repeat: no-repeat;
     background-position: center center;
@@ -47,7 +49,14 @@ hr.line {
 }
 </style>
 <h3 class="section-ttl_mini">Extension Links</h3>
+`
+    if (data.highend) {
+        const heighend_item_id: number = data.highend.item_id
+        const heighend_item_name: string = data.highend.item_name
+        inner_html += `<p class="alert_msg" > このアイテムには上位<br><a href="https://rotool.gungho.jp/item/` + heighend_item_id + `/0/">` + heighend_item_name + `</a><br>が存在します </p>`
+    }
 
+    inner_html += `
 <div class="center">
 <a href="https://rodb.aws.0nyx.net/bokehro/`+ item_id + `#plot" target="_blank">
 <img src="`+ export_img_url + `" alt="RODB: Bokeh RO png image" class="bokehro" /><br/>
@@ -63,9 +72,17 @@ ROアイテム検索くん で開く</a><br/>
 
 <hr class="line">
 
-<h4>Created by <a href="https://rodb.aws.0nyx.net">RODB - 0nyx.net</a></h4>
-            </div>`
+<div class="center">
+<a href="http://unitrix.net/?c=`+ item_id + `" target="_blank">
+Unitrix ラグナロク露店相場リサーチ で開く</a><br/>
+</div>
 
+<hr class="line">
+
+<h4>Created by <a href="https://rodb.aws.0nyx.net/">RODB - 0nyx.net</a></h4>
+</div>`
+
+    element_section.innerHTML = inner_html
     //末尾にsection追加
     document.getElementsByTagName("article").item(0)?.appendChild(element_section)
 
