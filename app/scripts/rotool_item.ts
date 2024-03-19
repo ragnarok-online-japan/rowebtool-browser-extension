@@ -19,12 +19,13 @@ const main = async () => {
                 element_injection(item_id, result.data, result.export_img_url)
             }
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error)
+            element_injection(item_id, null, "")
+        })
 }
 
 const element_injection = (item_id: number, data: any, export_img_url: string) => {
-    const item_name: string = data.item_name
-    const item_name_encodeed: string = encodeURI(item_name)
     const element_section = document.createElement("section")
     element_section.setAttribute("class", "content-wrap transction-wrap")
 
@@ -50,23 +51,35 @@ hr.line {
 </style>
 <h3 class="section-ttl_mini">Extension Links</h3>
 `
-    if (data.highend) {
+    if (data != null && data.highend) {
         const heighend_item_id: number = data.highend.item_id
         const heighend_item_name: string = data.highend.item_name
         inner_html += `<p class="alert_msg" > このアイテムには上位<br><a href="https://rotool.gungho.jp/item/` + heighend_item_id + `/0/">` + heighend_item_name + `</a><br>が存在します </p>`
     }
 
-    inner_html += `
+    if (data != null) {
+        const item_name: string = data.item_name
+        const item_name_encodeed: string = encodeURI(item_name)
+
+        inner_html += `
 <div class="center">
 <a href="https://rodb.aws.0nyx.net/bokehro/`+ item_id + `#plot" target="_blank">
 <img src="`+ export_img_url + `" alt="RODB: Bokeh RO png image" class="bokehro" /><br/>
 RODB - Bokeh RO : `+ item_name + ` を開く</a><br/>
-</div>
+</div>`
+    } else {
+        inner_html += `
+<div class="center">
+<a href="https://rodb.aws.0nyx.net/bokehro/`+ item_id + `#plot" target="_blank">
+RODB - Bokeh RO を開く</a><br/>
+</div>`
+    }
 
+    inner_html += `
 <hr class="line">
 
 <div class="center">
-<a href="https://roitemsearch.web.app/?search=`+ item_name_encodeed + `" target="_blank">
+<a href="https://roitemsearch.web.app/?id=`+ item_id + `" target="_blank">
 ROアイテム検索くん で開く</a><br/>
 </div>
 
