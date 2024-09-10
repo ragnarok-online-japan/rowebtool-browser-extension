@@ -37,5 +37,11 @@
                 "scripts/rowebtool_character.js"
             ]
         }
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "rowebtool_browser_extension@0nyx.net",
+            "strict_min_version": "130.0"
+        }
+    }
 }
