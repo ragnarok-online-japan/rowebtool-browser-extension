@@ -327,7 +327,10 @@ const main = async () => {
 <h1>RODB:ラグナロクオンライン Webブラウザ拡張</h1>
 
 <button id="button_translator" class="btn btn-primary btn-lg">RODB Translator で変換</button>
+<!--
 <button id="button_forward_to_rodb_simulator" class="btn btn-light btn-lg" disabled="disabled">RODB Simulator へ転送 (新ウィンドウで開きます)</button>
+-->
+<button id="button_forward_to_roratorio_hub" class="btn btn-light btn-lg" disabled="disabled">ROラトリオ Hub へ転送 (新ウィンドウで開きます)</button>
 
 <br/>
 <p>JSONデータ(読取専用、編集不可)</p>
@@ -341,6 +344,7 @@ const main = async () => {
     const textarea_json = document.getElementById('textarea_json')
     const button_translator = document.getElementById('button_translator')
     const button_forward_to_rodb_simulator = document.getElementById('button_forward_to_rodb_simulator')
+    const button_forward_to_roratorio_hub = document.getElementById('button_forward_to_roratorio_hub')
 
     button_translator?.addEventListener('click', event => {
         event.preventDefault();
@@ -360,6 +364,8 @@ const main = async () => {
                     textarea_json.innerHTML = json_string
                     button_forward_to_rodb_simulator?.classList.replace("btn-light", "btn-success")
                     button_forward_to_rodb_simulator?.removeAttribute("disabled")
+                    button_forward_to_roratorio_hub?.classList.replace("btn-light", "btn-success")
+                    button_forward_to_roratorio_hub?.removeAttribute("disabled")
                 }
             })
             .catch((error) => {
@@ -367,6 +373,7 @@ const main = async () => {
                 if (textarea_json) {
                     textarea_json.innerText = '{"error":"' + error + '"}'
                     button_forward_to_rodb_simulator?.setAttribute("disabled", "disabled")
+                    button_forward_to_roratorio_hub?.setAttribute("disabled", "disabled")
                 }
             })
     })
@@ -390,6 +397,31 @@ const main = async () => {
             .catch((error) => {
                 console.log(error)
                 button_forward_to_rodb_simulator?.setAttribute("disabled", "disabled")
+                if (textarea_json) {
+                    textarea_json.innerText = '{"error":"' + error + '"}'
+                }
+            })
+    })
+
+    button_forward_to_roratorio_hub?.addEventListener('click', event => {
+        event.preventDefault();
+
+        fetch('https://rodb.aws.0nyx.net/translator/roratorio-hub', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: json_string
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.success == true) {
+                    window.open(result.url)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+                button_forward_to_roratorio_hub?.setAttribute("disabled", "disabled")
                 if (textarea_json) {
                     textarea_json.innerText = '{"error":"' + error + '"}'
                 }
