@@ -52,7 +52,7 @@ const main = async () => {
         }
     }
 
-    if (html("section > div.skill > table > caption > p").text() == "スキル") {
+    if (html("section > div.skill > table > caption > p:nth-child(1)").text() == "スキル") {
         let cols = html("body > main > article > section > div.skill > table > tbody > tr").children("td")
 
         const regex_skill_lv = /^Lv ([0-9]+)/
